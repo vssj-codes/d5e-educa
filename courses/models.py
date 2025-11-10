@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from .fields import OrderField
+from django.template.loader import render_to_string
 
 
 class Subject(models.Model):
@@ -73,6 +74,11 @@ class ItemBase(models.Model):
     title = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def render(self):
+        return render_to_string(
+            f"courses/content/{self._meta.model_name}.html", {"item": self}
+        )
 
     class Meta:
         abstract = True
