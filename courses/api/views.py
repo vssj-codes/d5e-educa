@@ -28,7 +28,7 @@ from courses.api.serializers import CourseWithContentsSerializer
 class CourseViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Course.objects.prefetch_related("modules")
     serializer_class = CourseSerializer
-    # pagination_class = StandardPagination
+    pagination_class = StandardPagination
 
     @action(
         detail=True,
